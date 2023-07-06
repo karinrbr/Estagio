@@ -1,0 +1,22 @@
+.sign-table {
+  // padding: 20px;
+  width: 100%;
+  user-select: text;
+  .button-container {
+    padding-bottom: 20px;
+  }
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-cell {
+  // background-color: purple;
+  padding: 0 10px;
+}
+
+.mat-header-cell {
+  // background-color: yellow;
+  padding: 0 10px;
+}

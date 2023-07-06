@@ -1,0 +1,176 @@
+<ng-container *ngIf="true">
+  <div class="sign-table">
+    <!-- <div class="button-container">
+      <button mat-raised-button color="primary" (click)="handleNew()">
+        {{ "CREATE" }}
+      </button>
+    </div> -->
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #empTbSort
+      (matSortChange)="announceSortChange($event)">
+      <!-- Postal Code Column -->
+      <ng-container matColumnDef="postalCode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Postal Code">
+          Postal Code
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.postalCode }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- County Column -->
+      <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          County
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.city }} </mat-cell>
+      </ng-container>
+
+      <!-- House Number Column -->
+      <ng-container matColumnDef="houseNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          House N#
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.houseNumber }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Street Column -->
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Street
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.address }} </mat-cell>
+      </ng-container>
+
+      <!-- createdAt Column -->
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Created
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.createdAt }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- readSign Column -->
+      <ng-container matColumnDef="readSign">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>To Read</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.readSign }}
+        </td>
+      </ng-container>
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-chip-list>
+            <span>
+              <mat-chip [color]="element.status === 'pending' ? 'primary' : 'accent'" selected>
+                {{ element.status }}
+              </mat-chip>
+            </span>
+          </mat-chip-list>
+        </td>
+      </ng-container>
+
+      <!-- Change Slip Column -->
+      <ng-container matColumnDef="action_change_slip">
+        <mat-header-cell *matHeaderCellDef> Change Slip </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-mini-fab [disabled]="false" color="accent" (click)="handleChangeWorkType(element, 'change')">
+            <mat-icon>note_alt</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!--Collect Column -->
+      <ng-container matColumnDef="action_collect">
+        <mat-header-cell *matHeaderCellDef> Collect </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-mini-fab [disabled]="false" color="accent" (click)="handleChangeWorkType(element, 'collect')">
+            <mat-icon>local_shipping</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Re-Erect Column -->
+      <ng-container matColumnDef="action_re_erect">
+        <mat-header-cell *matHeaderCellDef> Re-erect </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-mini-fab [disabled]="false" color="accent" (click)="handleChangeWorkType(element, 'reerect')">
+            <mat-icon>inventory</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- workType Column -->
+      <ng-container matColumnDef="workType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Work Type
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-chip-list>
+            <span>
+              <mat-chip [color]="element.workType === 'new' ? 'primary' : 'accent'" selected>
+                {{ element.workType }}
+              </mat-chip>
+            </span>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="accent" disabled="false" (click)="handleEdit(element.id, element.status)" *ngIf="element.status === 'pending'">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Note Column -->
+      <ng-container matColumnDef="note">
+        <mat-header-cell *matHeaderCellDef> Note </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <!-- <mat-chip-list *ngIf="element.status === 'pending'">
+                        <span>
+                          <mat-chip
+                            [color]="element.status === 'pending' ? 'warn' : 'accent'"
+                            selected
+                            [disabled]="element.status !== 'pending'"
+                            (click)="handleEdit(element.id, element.status)"
+                            >{{ 'Edit' }}</mat-chip
+                          >
+                        </span>
+                      </mat-chip-list> -->
+          <button mat-raised-button *ngIf="element.status === 'pending'" color="accent">
+            {{ 'notes' }}
+          </button>
+          
+        </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="warn" disabled="false" (click)="handleDelete(element.id, element.status)" *ngIf="element.status === 'pending'">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+ 
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+      </mat-header-row>
+      <mat-row matRipple *matRowDef="let row; columns: displayedColumns">
+      </mat-row>
+    </mat-table>
+  </div>
+</ng-container>

@@ -1,0 +1,168 @@
+// @use "@angular/material" as mat;
+// @import "~@angular/material/theming";
+
+@import './flexboxgrid.scss';
+
+// Design System Colors
+$black: #212121;
+$light-black: #e0e0e0;
+$dark-grey: #93949b;
+$grey: #707083;
+$dark-silver: #626262;
+$light-grey: #93949b;
+$silver: #555659;
+$light-brown: #f6f5f5;
+$background: #f3f3f6;
+$white-bg: #fefefe;
+$white: #ffffff;
+$dark-white: #cccccc;
+$dark-blue: #101131;
+$dark-purple: #3d2855;
+$blue: #518fd8;
+$blue2: #095cff;
+$light-blue: #e3eefc;
+$green: #59b35b;
+$green2: #33ca42;
+$light-green: #eff5f3;
+$red: #b00020;
+$warning: #e4177c;
+$orange: #e5ca3d;
+$grad-1: #66e2fb;
+$grad-2: #a7ba4b;
+
+$purple-palette: (
+  50: #ede7f6,
+  100: #d1c4e9,
+  200: #b39ddb,
+  300: #9575cd,
+  400: #7e57c2,
+  500: #673ab7,
+  600: #5e35b1,
+  700: #512da8,
+  800: #4527a0,
+  900: #311b92,
+  A100: #b388ff,
+  A200: #7c4dff,
+  A300: #651fff,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A300: white,
+  ),
+);
+
+// $my-primary: mat.define-palette(mat.$indigo-palette, 500);
+// $my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// // The "warn" palette is optional and defaults to red if not specified.
+// $my-warn: mat.define-palette(mat.$red-palette);
+
+// $my-theme: mat.define-light-theme(
+//   (
+//     color: (
+//       primary: $my-primary,
+//       accent: $my-accent,
+//       warn: $my-warn,
+//     ),
+//   )
+// );
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: $background;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px $background inset;
+}
+
+.red-snackbar {
+  font-size: 16px;
+  color: $dark-blue;
+  background: $white-bg;
+  border-left: solid 15px $red;
+}
+
+.blue-snackbar {
+  font-size: 16px;
+  color: $dark-blue;
+  background: $white-bg;
+  border-left: solid 15px $dark-blue;
+}
+
+.button-white {
+  height: 52px;
+  min-width: 120px;
+
+  color: $dark-blue;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+
+  background-color: $white;
+}
+
+.button-green {
+  height: 52px;
+  min-width: 120px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+
+  background-color: $green;
+}
+
+.button-blue {
+  height: 52px;
+  min-width: 120px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.custom-dialog-class .mat-dialog-container {
+  padding: 0 !important;
+  background-color: #000000ad;
+  box-shadow: none;
+}
+
+.dialogBackdrop {
+  background-color: #000000ad;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(246, 246, 246) inset !important;
+}
+
+.white-icon {
+  color: white;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.white-icon svg {
+  fill: white;
+}

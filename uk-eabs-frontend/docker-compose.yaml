@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  dss-frontend:
+    command: ng serve --host 0.0.0.0 --disable-host-check
+    build:
+      dockerfile: angular.dockerfile
+      target: development
+      context: ./
+    hostname: ${APP_CONTAINER}
+    container_name: ${APP_CONTAINER}
+    restart: 'no'
+    expose:
+      - 4200
+    ports:
+      - ${APP_PORT}:4200
+    env_file:
+      - .env
+    volumes:
+      - ./secrets:/app/secrets
+    networks:
+      - dss-network
+
+networks:
+  dss-network:
+    external: true

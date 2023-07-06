@@ -1,0 +1,29 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // {
+    //     "type": "node",
+    //     "request": "launch",
+    //     "name": "Launch Nest",
+    //     "program": "${workspaceFolder}/apps/nest/src/main.ts",
+    //     "preLaunchTask": "tsc: watch - apps/nest/tsconfig.json",
+    //     "outFiles": ["${workspaceFolder}/dist/apps/nest/**/*.js"],
+    //     "skipFiles": ["${workspaceFolder}/node_modules/**/*.js", "<node_internals>/**/*.js"],
+    //     "port": 8129
+    // },
+    {
+      "name": "Docker: Attach to Node",
+      "type": "node",
+      "request": "attach",
+      "port": 8129,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/nest",
+      "protocol": "inspector",
+      "restart": true
+    }
+  ]
+}

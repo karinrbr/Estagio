@@ -1,0 +1,135 @@
+<ng-container>
+  <mat-toolbar class="layout-header" color="primary">
+    <div>
+      <button
+        mat-icon-button
+        aria-label="Hamburguer Menu"
+        (click)="toogleNavMenu(sidenav)">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="header-title"></span>
+    </div>
+    <div class="layout-spacer"></div>
+    <div>
+      <!-- <button
+        mat-icon-button
+        class="button-avatar"
+        aria-label="Example icon-button with share icon"
+        (click)="logout()"
+      >
+        <span class="span-name">{{ username }}</span>
+        <mat-icon>account_circle</mat-icon>
+      </button> -->
+      <div class="badges-container">
+        <button mat-icon-button>
+          <mat-icon
+            matBadge="2"
+            matBadgeColor="accent"
+            [matBadgeHidden]="chatBadgeisHidden"
+            (click)="toggleChatBadgeVisibility()"
+            >chat</mat-icon
+          >
+        </button>
+
+        <button mat-icon-button>
+          <mat-icon
+            matBadge="2"
+            matBadgeColor="warn"
+            [matBadgeHidden]="notificationBadgeisHidden"
+            [matMenuTriggerFor]="menu"
+            >notifications</mat-icon
+          >
+          <mat-menu class="my-class" #menu="matMenu">
+            <ng-template matMenuContent>
+              <app-layout-notifications-panel></app-layout-notifications-panel>
+            </ng-template>
+          </mat-menu>
+        </button>
+        
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="layout-container" autosize color="primary">
+    <mat-sidenav
+      #sidenav
+      mode="side"
+      opened
+      class="layout-sidenav"
+      [fixedInViewport]="false"
+      [fixedTopGap]="0"
+      [fixedBottomGap]="0">
+      <mat-nav-list class="nav-list">
+        <div>
+          <ng-container *ngFor="let link of links">
+            <mat-list-item routerLinkActive="activedLink">
+              <a
+                matLine
+                routerLink="{{ link.link }}"
+                ariaCurrentWhenActive="page">
+                <div class="nav-item">
+                  <mat-icon class="white-icon">{{ link.icon }}</mat-icon>
+                  <div
+                    style="padding-left: 10px; padding-top: 4px"
+                    class="white-icon">
+                    {{ link.label }}
+                  </div>
+                </div>
+              </a>
+            </mat-list-item>
+            <ng-container *ngFor="let innerLink of link.children">
+              <mat-list-item
+                class="mat-list-item-children"
+                routerLinkActive="activedLink">
+                <a
+                  matLine
+                  routerLink="{{ innerLink.link }}"
+                  ariaCurrentWhenActive="page">
+                  <div class="nav-item">
+                    <mat-icon class="white-icon">{{ innerLink.icon }}</mat-icon>
+                    <div
+                      style="padding-left: 10px; padding-top: 4px"
+                      class="white-icon">
+                      {{ innerLink.label }}
+                    </div>
+                  </div>
+                </a>
+              </mat-list-item>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="layout-spacer"></div>
+        <div class="nav-horizontal-line"></div>
+        <div class="nav-bottom-container">
+          <!-- <mat-list-item> -->
+          <div class="nav-item" style="padding-left: 10px">
+            <mat-icon class="white-icon">account_circle</mat-icon>
+            <div
+              style="padding-left: 10px; padding-top: 4px"
+              class="white-icon">
+              <span class="span-name">{{ username }}</span>
+            </div>
+          </div>
+          <!-- </mat-list-item> -->
+          <mat-list-item (click)="logout()">
+            <div class="nav-item" (click)="logout()">
+              <div class="white-icon">
+                <span class="span-name">{{ 'Logout' }}</span>
+              </div>
+            </div>
+          </mat-list-item>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="layout-router-outlet">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- <mat-toolbar class="layout-footer">
+    <div><p>Footer</p></div>
+  </mat-toolbar> -->
+</ng-container>

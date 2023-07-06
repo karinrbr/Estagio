@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  dss_postgres:
+    image: postgres:12.3
+    restart: 'no'
+    container_name: ${POSTGRES_CONTAINER}
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PG_DATA: /var/lib/postgresql/data
+    hostname: ${POSTGRES_HOST}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - dss-postgres-data:/var/lib/postgresql/data
+    networks:
+      - dss-network
+
+  dss_old_database:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'dss_old_database'
+      MYSQL_ROOT_PASSWORD: 'iPk-12C-zXc'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: 'techteam'
+      MYSQL_PASSWORD: 'MR2-125-Akq'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - dss-mysql-data:/var/lib/mysql
+    networks:
+      - dss-network
+
+  dss_api:
+    command: npm run start:debug
+    build:
+      dockerfile: nest.dockerfile
+      target: development
+      context: ./
+    depends_on:
+      - dss_postgres
+    restart: 'no'
+    container_name: ${APP_CONTAINER}
+    env_file: .env
+    hostname: ${APP_HOST}
+    ports:
+      - 8129:9229
+      - ${APP_PORT}:3000
+    volumes:
+      - ./secrets:/nest/secrets
+      - ./static:/nest/static
+      - ./src:/nest/src
+      - ./dist:/nest/dist
+      - ./migrations:/nest/migrations
+    networks:
+      - dss-network
+
+volumes:
+  dss-postgres-data:
+  dss-mysql-data:
+
+networks:
+  dss-network:
+    external: true

@@ -1,0 +1,20 @@
+<div>
+  <ng-container *ngIf="apiLoaded | async">
+    <div class="google-map-container" #map>
+      <google-map
+        (height)="(map.offsetHeight)"
+        (width)="(map.offsetWidth)"
+        [zoom]="zoom"
+        [center]="center"
+        [options]="options"
+        (mapClick)="moveMap($event)"
+        (mapMousemove)="move($event)">
+        <map-marker
+          *ngFor="let markerPosition of markerPositions"
+          [options]="markerOptions"
+          [position]="markerPosition"
+          (mapDragend)="moveDragendMaker($event)"></map-marker>
+      </google-map>
+    </div>
+  </ng-container>
+</div>

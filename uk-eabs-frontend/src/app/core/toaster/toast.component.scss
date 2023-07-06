@@ -1,0 +1,83 @@
+@import '../../../styles.scss';
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+
+  min-height: 75px;
+
+  padding: 20px;
+
+  background-color: transparent;
+
+  .icon {
+    display: flex;
+    align-self: flex-start;
+
+    height: 30px;
+    width: 30px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-grow: 1;
+
+    padding-left: 13px;
+
+    .title {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      padding: 0px;
+      padding-bottom: 8px;
+
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+    }
+    .description {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      color: $white;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .close {
+    display: flex;
+    align-self: flex-start;
+
+    cursor: pointer;
+    color: $white;
+  }
+}
+
+.t0 {
+  border-left: solid 10px $green;
+  color: $green;
+}
+.t1 {
+  border-left: solid 10px $orange;
+  color: $orange;
+}
+.t2 {
+  border-left: solid 10px $warning;
+  color: $warning;
+}
+
+::ng-deep snack-bar-container.snackbar-panel {
+  padding: 0;
+  user-select: none;
+  background-color: $dark-purple;
+}

@@ -1,0 +1,117 @@
+@import '../../../styles.scss';
+
+.schedule-filters {
+  display: flex;
+  .date-field {
+    margin-left: 20px;
+  }
+  .button {
+    margin-left: 20px;
+    height: 50px;
+  }
+}
+.schedule-table {
+  display: flex;
+  flex-direction: column;
+
+  table {
+    max-width: 100%;
+    margin: 0px 0px 20px 0px;
+
+    // background-color: red;
+
+    td,
+    th {
+      text-align: center !important;
+      vertical-align: middle !important;
+    }
+
+    .mat-column-header-row-postalCode-group {
+      background-color: #d1c4e9;
+    }
+
+    .mat-sort-header-container {
+      justify-content: center !important;
+    }
+
+    .mat-column-position {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 10% !important;
+      width: 10% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-postalCode {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 20% !important;
+      width: 20% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-city {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 20% !important;
+      width: 20% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-houseNumber {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 10% !important;
+      width: 10% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-address {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 40% !important;
+      width: 40% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<ng-container *ngIf="showSelect">
+    <mat-form-field appearance="fill">
+        <mat-label>Request Type</mat-label>
+        <mat-select [disabled]="disableSelect" (valueChange)="handleRequestChange($event)">
+            <mat-option value="sign">New board</mat-option>
+            <mat-option value="change-table">Collect / Change Board</mat-option>
+            <mat-option value="collect">Collect Stray Board</mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-container>
+
+
+<router-outlet></router-outlet>

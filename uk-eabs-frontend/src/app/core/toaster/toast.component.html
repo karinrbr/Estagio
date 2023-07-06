@@ -1,0 +1,18 @@
+<div [class]="data?.type === '0' ? 't0' : data?.type === '1' ? ' t1' : 't2'">
+  <div class="box">
+    <img
+      class="icon"
+      src="{{ '../../../assets/icons/toaster-' + data?.type + '.svg' }}" />
+
+    <div class="info">
+      <div class="title">
+        {{ data?.title }}
+      </div>
+      <div class="description">{{ data?.description }}</div>
+    </div>
+
+    <div class="material-icons close" (click)="snackBarRef.dismiss()">
+      close
+    </div>
+  </div>
+</div>

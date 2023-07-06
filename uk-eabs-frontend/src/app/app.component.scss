@@ -1,0 +1,8 @@
+.app-root {
+  display: flex;
+  overflow-y: hidden;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: -webkit-fill-available;
+  overflow: auto;
+}

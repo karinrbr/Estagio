@@ -1,0 +1,161 @@
+<form [formGroup]="form" autocomplete="off">
+  <ng-container *ngIf="true">
+    <div class="sign-table">
+      <!-- <div class="button-container">
+          <button mat-raised-button color="primary" (click)="handleNew()">
+            {{ "CREATE" }}
+          </button>
+        </div> -->
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 sign-table" matSort #empTbSort
+        (matSortChange)="announceSortChange($event)">
+        <!-- Postal Code Column -->
+        <ng-container matColumnDef="postalCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Postal Code">Postal Code</th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+            {{ element.postalCode }}
+          </td>
+        </ng-container>
+
+        <!-- County Column -->
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>County</th>
+          <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
+        </ng-container>
+
+        <!-- House Number Column -->
+        <ng-container matColumnDef="houseNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>House N#</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.houseNumber }}
+          </td>
+        </ng-container>
+
+        <!-- Street Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Street</th>
+          <td mat-cell *matCellDef="let element"> {{ element.address }} </td>
+        </ng-container>
+
+        <!-- createdAt Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.createdAt }}
+          </td>
+        </ng-container>
+
+        <!-- readSign Column -->
+        <ng-container matColumnDef="readSign">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>To Read</th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+            {{ element.readSign }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-chip-list>
+              <span>
+                <mat-chip [color]="element.status === 'pending' ? 'primary' : 'accent'" selected>
+                  {{ element.status }}
+                </mat-chip>
+              </span>
+            </mat-chip-list>
+          </td>
+        </ng-container>
+
+        <!-- createdBy Column -->
+        <ng-container matColumnDef="createdBy">
+          <th mat-header-cell *matHeaderCellDef>Agent</th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+            {{ getUserName(element) }}
+          </td>
+        </ng-container>
+
+        <!-- scheduleAt Column -->
+        <ng-container matColumnDef="scheduleAt">
+          <th mat-header-cell *matHeaderCellDef>Scheduled At</th>
+          <td mat-cell *matCellDef="let element">
+            <div style="display: flex; align-items: center;">
+              <button mat-mini-fab disabled="false" (click)="picker3.open()" [disabled]="element.status !== 'pending'">
+                <mat-icon>event</mat-icon>
+              </button>
+              <span style="padding-left: 10px; white-space: nowrap;">{{element.scheduleAt | DateToString }}</span>
+             </div>
+           
+
+            <mat-form-field appearance="fill" style="display: none;">
+              <mat-label>Date</mat-label>
+              <input matInput disabled [matDatepicker]="picker3" [value]="element.scheduleAt"
+                (dateChange)="scheduleAtValueChange($event, element)" />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3 [disabled]="element.status !== 'pending'"></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- scheduleTo Column -->
+        <ng-container matColumnDef="scheduleTo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Scheduled To</th>
+          <td mat-cell *matCellDef="let element">
+            <!-- {{ element.scheduleTo }} -->
+            <mat-form-field appearance="fill" *ngIf="userSelectValues.length > 0">
+              <mat-label>Users</mat-label>
+              <mat-select (valueChange)="
+                  scheduleToValueChange(
+                    'c88ac485-f823-4418-b1dd-e0e66a9af631',
+                    element
+                  )
+                " [disabled]="element.status !== 'pending'" [value]="element.scheduleTo?.id">
+                <mat-option *ngFor="let user of userSelectValues" [value]="user.value">
+                  {{ user.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Schedule Column -->
+        <ng-container matColumnDef="schedule">
+          <th mat-header-cell *matHeaderCellDef>Schedule</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-chip-list *ngIf="element.status === 'pending'">
+              <span>
+                <mat-chip [color]="element.status === 'pending' ? 'warn' : 'accent'" selected
+                  [disabled]="element.status !== 'pending'" (click)="handleEdit(element)">{{ 'Schedule' }}</mat-chip>
+              </span>
+            </mat-chip-list>
+          </td>
+        </ng-container>
+
+
+        <!-- Note Column -->
+        <ng-container matColumnDef="note">
+          <th mat-header-cell *matHeaderCellDef>Note</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="!element.hasNote">
+              <button mat-mini-fab disabled="false" color="accent" [disabled]="element.status !== 'pending'"
+                (click)="handleShowNote(element)">
+                <mat-icon>notes</mat-icon>
+              </button>
+            </span>
+            <div *ngIf="element.hasNote" style="padding: 10px;">
+              <mat-form-field appearance="fill">
+                <mat-label>Note</mat-label>
+                <textarea matInput [disabled]="true" [value]="element.notes"></textarea>
+              </mat-form-field>
+              <mat-chip [color]="'primary'" selected (click)="handleShowNote(element)">{{ 'Close Note' }}</mat-chip>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row matRipple *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </ng-container>
+</form>

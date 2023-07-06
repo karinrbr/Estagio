@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true,
+  "vsicons.presets.nestjs": true,
+  "debug.node.autoAttach": "on"
+}
